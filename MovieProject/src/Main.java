@@ -23,7 +23,7 @@ public class Main {
 			while((zeile = in.readLine()) != null) {
 				
 				if(zeile.equals("New_Entity: \"actor_id\",\"actor_name\"")) {
-					in.readLine();
+					//in.readLine();
 					
 					HashMap<Integer, Actor> actors = new HashMap<Integer, Actor>();
 					
@@ -33,8 +33,8 @@ public class Main {
 						actors.put(Integer.parseInt(split[1]), new Actor(Integer.parseInt(split[1]), split[3]));
 					}
 					
-				} else if(zeile.equals("New_Entity: \"movie_id\",\"movie_title\",\"movie_plot\",\"genre_name\",\"movie_released\",\"movie_imdbVotes\",\"movie_imdbRating\"")) {
-					in.readLine();
+				} if(zeile.equals("New_Entity: \"movie_id\",\"movie_title\",\"movie_plot\",\"genre_name\",\"movie_released\",\"movie_imdbVotes\",\"movie_imdbRating\"")) {
+					//in.readLine();
 					
 					HashMap<Integer, Movie> movies = new HashMap<Integer, Movie>();
 					
@@ -59,7 +59,7 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		String dbName = "C:\\Users\\MADERP\\Documents\\Eclipse\\MovieProject\\src\\movieproject.db";
+		String dbName = "./src//movieproject.db";
 		ladeDatei(dbName);
 	}
 
