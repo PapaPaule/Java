@@ -20,4 +20,8 @@ public class User {
 		return this.reviews;
 	}
 	
+	public void addReview(Review review) {
+		this.reviews.add(review);
+	}
+	
 }

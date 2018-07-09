@@ -26,4 +26,8 @@ public class Actor {
 		return this.actedMovies;
 	}
 	
+	public void addActedMovie(Movie movie) {
+		this.actedMovies.add(movie);
+	}
+	
 }

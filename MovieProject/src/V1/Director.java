@@ -26,4 +26,8 @@ public class Director {
 		return this.directedMovies;
 	}
 	
+	public void addDirectedMovie(Movie movie) {
+		this.directedMovies.add(movie);
+	}
+	
 }

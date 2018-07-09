@@ -16,13 +16,12 @@ public class Movie {
 	protected double rating;
 	
 	
-	public Movie(int id, String title, String plot, String genre, String release, Director director, int reviewAnz, double rating) {
+	public Movie(int id, String title, String plot, String genre, String release, int reviewAnz, double rating) {
 		this.id = id;
 		this.title = title;
 		this.plot = plot;
 		this.genre = genre;
 		this.release = release;
-		this.director = director;
 		this.reviewAnz = reviewAnz;
 		this.rating = rating;
 		this.actors = new ArrayList<Actor>();
@@ -67,6 +66,20 @@ public class Movie {
 	
 	public List<Review> getReviews() {
 		return this.reviews;
+	}
+	
+	public void addActor(Actor actor) {
+		this.actors.add(actor);
+	}
+	
+	public void setDirector(Director director) {
+		this.director = director;
+	}
+	
+	public void addReview(Review review) {
+		this.reviews.add(review);
+		this.rating = (this.reviewAnz * this.rating + review.rating) / (this.reviewAnz + 1);
+		this.reviewAnz++;
 	}
 	
 }
