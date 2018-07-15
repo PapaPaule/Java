@@ -17,7 +17,7 @@ public class Movie {
 	protected String plot;
 	protected String genre;
 	protected String release;
-	protected Director director;
+	protected List<Director> directors;
 	protected List<Actor> actors;
 	protected List<Review> reviews;
 	protected int reviewAnz;
@@ -30,8 +30,10 @@ public class Movie {
 	 * @param plot
 	 * @param genre
 	 * Legt einen neuen Film an mit ID, Titel, Plot und Genre.
-	 * Es wird eine neue leere Liste actors für Schauspieler des Typs Actors
-	 * angelegt und eine leere Liste reviews für Bewertungen des Typs Review.
+	 * Es wird eine neue leere Liste actors für Schauspieler des Typs Actors,
+	 * eine leere Liste reviews für Bewertungen des Typs Review
+	 * und eine leere Liste directors für Regisseure des Typs Director
+	 * angelegt.
 	 */
 	public Movie(int id, String title, String plot, String genre) {
 		this.id = id;
@@ -40,6 +42,7 @@ public class Movie {
 		this.genre = genre;
 		this.actors = new ArrayList<Actor>();
 		this.reviews = new ArrayList<Review>();
+		this.directors = new ArrayList<Director>();
 	}
 	
 	/**
@@ -86,8 +89,8 @@ public class Movie {
 	 * @return director
 	 * Gibt den Director des Films zurück.
 	 */
-	public Director getDirector() {
-		return this.director;
+	public List<Director> getDirector() {
+		return this.directors;
 	}
 	
 	/**
@@ -132,10 +135,10 @@ public class Movie {
 	
 	/**
 	 * @param director
-	 * Fügt einen Director vom Typ Director dem Film hinzu.
+	 * Fügt einen Regisseur vom Typ Director der Liste directors hinzu.
 	 */
-	public void setDirector(Director director) {
-		this.director = director;
+	public void addDirector(Director director) {
+		this.directors.add(director);
 	}
 	
 	/**

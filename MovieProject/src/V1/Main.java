@@ -129,7 +129,7 @@ public class Main {
 						String[] split = deleteSpace(zeile);
 						
 						//Ordne Director Movie zu
-						db.movies.get(Integer.parseInt(split[1])).setDirector(db.directors.get(Integer.parseInt(split[0])));
+						db.movies.get(Integer.parseInt(split[1])).addDirector(db.directors.get(Integer.parseInt(split[0])));
 						
 						//Füge Movie in DirectedMovies des Directors ein
 						db.directors.get(Integer.parseInt(split[0])).addDirectedMovie(db.movies.get(Integer.parseInt(split[1])));
@@ -205,9 +205,9 @@ public class Main {
 	public static void printDb(Data db) {
 		
 		for(Movie movie: db.movies.values()) {
-			System.out.print(movie.getTitle() + ": " + movie.getPlot() + ", with: ");
-			for(Actor actor: movie.actors) {
-				System.out.print(actor.getName() + ", ");
+			System.out.print(movie.getTitle() + ": " + movie.getPlot() + ", by ");
+			for(Director director: movie.directors) {
+				System.out.print(director.getName() + ", ");
 			}
 			System.out.print(movie.getRating() + ", Anz: " + movie.reviewAnz + "\n");
 		}
