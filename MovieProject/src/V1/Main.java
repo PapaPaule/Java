@@ -13,9 +13,9 @@ public class Main {
 	 * @return split1
 	 * Die Funktion deleteSpace bekommt den Inhalt einer Zeile als String,
 	 * teilt diesen in einzelne Strings auf, um die einzelnen Daten der
-	 * Liste zu bekommen und entfernt anschließend noch die Leerzeichen am
+	 * Liste zu bekommen und entfernt anschlieï¿½end noch die Leerzeichen am
 	 * Anfang und Ende eines Strings.
-	 * Sie gibt einen Array an Strings zurück mit den einzelnen Teilen.
+	 * Sie gibt einen Array an Strings zurï¿½ck mit den einzelnen Teilen.
 	 */
 	public static String[] deleteSpace(String input) {
 		
@@ -39,13 +39,13 @@ public class Main {
 	 * Die Funktion ladeDB bekommt den Dateipfad zur Datenbankdatei und
 	 * eine Datenbank vom Typ Data als Input.
 	 * Es werden alle Daten aus der Datei ausgelesen, die jeweiligen Objekte
-	 * erstellt und anschließend in die HashMaps der Datenbank db 
-	 * eingefügt.
+	 * erstellt und anschlieï¿½end in die HashMaps der Datenbank db 
+	 * eingefï¿½gt.
 	 */
 	public static Data ladeDB(String dbName, Data db) {
 		File datei = new File(dbName);
 		
-		//prüfe ob Datei korrekt
+		//prï¿½fe ob Datei korrekt
 		if(!datei.canRead() || !datei.isFile()) {
 			System.exit(0);
 		}
@@ -86,8 +86,8 @@ public class Main {
 						Movie movie = new Movie(Integer.parseInt(split[0]), split[1], split[2], split[3]);
 						
 						if(split.length > 4 && !split[4].equals("")) 	movie.setRelease(split[4]);
-						if(split.length > 5 && !split[5].equals(""))	movie.setReviewAnz(Integer.parseInt(split[5]));
-						if(split.length > 6 && !split[6].equals(""))	movie.setRating(Double.parseDouble(split[6]));
+						if(split.length > 5 && !split[5].equals(""))	movie.setImdbAnz(Integer.parseInt(split[5]));
+						if(split.length > 6 && !split[6].equals(""))	movie.setImdbRating(Double.parseDouble(split[6]));
 						
 						db.addMovie(movie);
 					
@@ -113,10 +113,10 @@ public class Main {
 						
 						String[] split = deleteSpace(zeile);
 						
-						//Movie zu ActedMovies des Actors hinzufügen
+						//Movie zu ActedMovies des Actors hinzufï¿½gen
 						db.actors.get(Integer.parseInt(split[0])).addActedMovie(db.movies.get(Integer.parseInt(split[1])));
 						
-						//Actor zu Actors des Movies hinzufügen
+						//Actor zu Actors des Movies hinzufï¿½gen
 						db.movies.get(Integer.parseInt(split[1])).addActor(db.actors.get(Integer.parseInt(split[0])));
 						
 					}
@@ -131,7 +131,7 @@ public class Main {
 						//Ordne Director Movie zu
 						db.movies.get(Integer.parseInt(split[1])).addDirector(db.directors.get(Integer.parseInt(split[0])));
 						
-						//Füge Movie in DirectedMovies des Directors ein
+						//Fï¿½ge Movie in DirectedMovies des Directors ein
 						db.directors.get(Integer.parseInt(split[0])).addDirectedMovie(db.movies.get(Integer.parseInt(split[1])));
 						
 					}
@@ -205,11 +205,11 @@ public class Main {
 	public static void printDb(Data db) {
 		
 		for(Movie movie: db.movies.values()) {
-			System.out.print(movie.getTitle() + ": " + movie.getPlot() + ", by ");
+			System.out.print(movie.getTitle() + ": " + movie.getPlot() + ", Genre: " + movie.getGenre() + ", by ");
 			for(Director director: movie.directors) {
 				System.out.print(director.getName() + ", ");
 			}
-			System.out.print(movie.getRating() + ", Anz: " + movie.reviewAnz + "\n");
+			System.out.print(movie.getUserRating() + ", Anz: " + movie.userRatingAnz + "\n");
 		}
 		
 	}

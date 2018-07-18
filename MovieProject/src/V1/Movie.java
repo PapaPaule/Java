@@ -7,7 +7,7 @@ import java.util.*;
  * Die Klasse Movie definiert einen Film. Ein Film beinhaltet
  * die Film-ID, den Titel, die Beschreibung (Plot), das Genre,
  * das Release-Datum, den Director, eine Liste mit Schauspielern,
- * die mitspielen, eine Liste an Reviews über den Film, die Anzahl
+ * die mitspielen, eine Liste an Reviews ï¿½ber den Film, die Anzahl
  * an Reviews und das durchschnittliche Rating.
  */
 public class Movie {
@@ -20,8 +20,10 @@ public class Movie {
 	protected List<Director> directors;
 	protected List<Actor> actors;
 	protected List<Review> reviews;
-	protected int reviewAnz;
-	protected double rating;
+	protected int userRatingAnz;
+	protected double userRating;
+	protected int imdbAnz;
+	protected double imdbRating;
 	
 	
 	/**
@@ -30,10 +32,11 @@ public class Movie {
 	 * @param plot
 	 * @param genre
 	 * Legt einen neuen Film an mit ID, Titel, Plot und Genre.
-	 * Es wird eine neue leere Liste actors für Schauspieler des Typs Actors,
-	 * eine leere Liste reviews für Bewertungen des Typs Review
-	 * und eine leere Liste directors für Regisseure des Typs Director
-	 * angelegt.
+	 * Es wird eine neue leere Liste actors fï¿½r Schauspieler des Typs Actors,
+	 * eine leere Liste reviews fï¿½r Bewertungen des Typs Review
+	 * und eine leere Liste directors fï¿½r Regisseure des Typs Director
+	 * angelegt. Die Bewertung uns Anzahl der Bewertungen wird mit 
+	 * Null initialisiert.
 	 */
 	public Movie(int id, String title, String plot, String genre) {
 		this.id = id;
@@ -43,11 +46,13 @@ public class Movie {
 		this.actors = new ArrayList<Actor>();
 		this.reviews = new ArrayList<Review>();
 		this.directors = new ArrayList<Director>();
+		this.userRating = 0;
+		this.userRatingAnz = 0;
 	}
 	
 	/**
 	 * @return id
-	 * Gibt die Movie-ID zurück.
+	 * Gibt die Movie-ID zurï¿½ck.
 	 */
 	public int getId() {
 		return this.id;
@@ -55,7 +60,7 @@ public class Movie {
 	
 	/**
 	 * @return title
-	 * Gibt den Film-Titel zurück.
+	 * Gibt den Film-Titel zurï¿½ck.
 	 */
 	public String getTitle() {
 		return this.title;
@@ -63,7 +68,7 @@ public class Movie {
 	
 	/**
 	 * @return plot
-	 * Gibt die Beschreibung des Films zurück.
+	 * Gibt die Beschreibung des Films zurï¿½ck.
 	 */
 	public String getPlot() {
 		return this.plot;
@@ -71,7 +76,7 @@ public class Movie {
 	
 	/**
 	 * @return genre
-	 * Gibt das Genre des Films zurück.
+	 * Gibt das Genre des Films zurï¿½ck.
 	 */
 	public String getGenre() {
 		return this.genre;
@@ -79,7 +84,7 @@ public class Movie {
 	
 	/**
 	 * @return release
-	 * Gibt das Releasedatum zurück.
+	 * Gibt das Releasedatum zurï¿½ck.
 	 */
 	public String getRelease() {
 		return this.release;
@@ -87,7 +92,7 @@ public class Movie {
 	
 	/**
 	 * @return director
-	 * Gibt den Director des Films zurück.
+	 * Gibt den Director des Films zurï¿½ck.
 	 */
 	public List<Director> getDirector() {
 		return this.directors;
@@ -95,23 +100,23 @@ public class Movie {
 	
 	/**
 	 * @return reviewAnz
-	 * Gibt die Anzahl an Reviews zurück.
+	 * Gibt die Anzahl an Reviews zurï¿½ck.
 	 */
-	public int getReviewAnz() {
-		return this.reviewAnz;
+	public int getImdbAnz() {
+		return this.imdbAnz;
 	}
 	
 	/**
 	 * @return rating
-	 * Gibt das durchschnittliche Rating zurück.
+	 * Gibt das durchschnittliche Rating zurï¿½ck.
 	 */
-	public double getRating() {
-		return this.rating;
+	public double getImdbRating() {
+		return this.imdbRating;
 	}
 	
 	/**
 	 * @return actors
-	 * Gibt die Liste an Schauspielern des Films zurück.
+	 * Gibt die Liste an Schauspielern des Films zurï¿½ck.
 	 */
 	public List<Actor> getActors() {
 		return this.actors;
@@ -119,15 +124,31 @@ public class Movie {
 	
 	/**
 	 * @return reviews
-	 * Gibt eine liste an Reviews des Films zurück.
+	 * Gibt eine liste an Reviews des Films zurï¿½ck.
 	 */
 	public List<Review> getReviews() {
 		return this.reviews;
 	}
 	
 	/**
+	 * @return userRatingAnz
+	 * Gibt die Anzahl der User Ratings zurÃ¼ck.
+	 */
+	public int getUserRatingAnz() {
+		return this.userRatingAnz;
+	}
+	
+	/**
+	 * @return userRating
+	 * Gibt die durchschnittliche User Bewertung zurÃ¼ck.
+	 */
+	public double getUserRating() {
+		return this.userRating;
+	}
+	
+	/**
 	 * @param actor
-	 * Fügt actor der Liste an Schauspielern hinzu.
+	 * Fï¿½gt actor der Liste an Schauspielern hinzu.
 	 */
 	public void addActor(Actor actor) {
 		this.actors.add(actor);
@@ -135,7 +156,7 @@ public class Movie {
 	
 	/**
 	 * @param director
-	 * Fügt einen Regisseur vom Typ Director der Liste directors hinzu.
+	 * Fï¿½gt einen Regisseur vom Typ Director der Liste directors hinzu.
 	 */
 	public void addDirector(Director director) {
 		this.directors.add(director);
@@ -153,27 +174,27 @@ public class Movie {
 	 * @param anz
 	 * Legt die Anzhal an Reviews fest.
 	 */
-	public void setReviewAnz(int anz) {
-		this.reviewAnz = anz;
+	public void setImdbAnz(int anz) {
+		this.imdbAnz = anz;
 	}
 	
 	/**
 	 * @param rating
 	 * Legt das durchschnittliche Rating des Films fest.
 	 */
-	public void setRating(double rating) {
-		this.rating = rating;
+	public void setImdbRating(double rating) {
+		this.imdbRating = rating;
 	}
 	
 	/**
 	 * @param review
-	 * Fügt ein neues Review zur Review-Liste hinzu,
-	 * überarbeitet das Rating und erhöht die Reviewanzahl.
+	 * Fï¿½gt ein neues Review zur Review-Liste hinzu,
+	 * ï¿½berarbeitet das Rating und erhï¿½ht die Reviewanzahl.
 	 */
 	public void addReview(Review review) {
 		this.reviews.add(review);
-		this.rating = (this.reviewAnz * this.rating + review.rating) / (this.reviewAnz + 1);
-		this.reviewAnz++;
+		this.userRating = ( this.userRating * this.userRatingAnz + review.getRating() ) / ( this.userRatingAnz + 1);
+		this.userRatingAnz++;
 	}
 	
 }
