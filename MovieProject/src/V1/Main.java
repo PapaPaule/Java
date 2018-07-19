@@ -209,7 +209,7 @@ public class Main {
 			for(Director director: movie.directors) {
 				System.out.print(director.getName() + ", ");
 			}
-			System.out.print(movie.getUserRating() + ", Anz: " + movie.userRatingAnz + "\n");
+			System.out.print(movie.getOverallRating() + "\n");
 		}
 		
 	}

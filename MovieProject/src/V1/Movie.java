@@ -21,9 +21,10 @@ public class Movie {
 	protected List<Actor> actors;
 	protected List<Review> reviews;
 	protected int userRatingAnz;
-	protected double userRating;
+	protected Double userRating;
 	protected int imdbAnz;
-	protected double imdbRating;
+	protected Double imdbRating;
+	protected Double overallRating;
 	
 	
 	/**
@@ -46,8 +47,9 @@ public class Movie {
 		this.actors = new ArrayList<Actor>();
 		this.reviews = new ArrayList<Review>();
 		this.directors = new ArrayList<Director>();
-		this.userRating = 0;
+		this.userRating = 0.0;
 		this.userRatingAnz = 0;
+		this.overallRating = 0.0;
 	}
 	
 	/**
@@ -110,7 +112,7 @@ public class Movie {
 	 * @return rating
 	 * Gibt das durchschnittliche Rating zurï¿½ck.
 	 */
-	public double getImdbRating() {
+	public Double getImdbRating() {
 		return this.imdbRating;
 	}
 	
@@ -142,8 +144,16 @@ public class Movie {
 	 * @return userRating
 	 * Gibt die durchschnittliche User Bewertung zurÃ¼ck.
 	 */
-	public double getUserRating() {
+	public Double getUserRating() {
 		return this.userRating;
+	}
+	
+	/**
+	 * @return overallRating
+	 * Gibt die Bewertung des Films (60% User Rating - 40% IMDB Rating) zurück.
+	 */
+	public Double getOverallRating() {
+		return this.overallRating;
 	}
 	
 	/**
@@ -182,19 +192,27 @@ public class Movie {
 	 * @param rating
 	 * Legt das durchschnittliche Rating des Films fest.
 	 */
-	public void setImdbRating(double rating) {
+	public void setImdbRating(Double rating) {
 		this.imdbRating = rating;
+		this.overallRating = this.imdbRating / 2;
 	}
 	
 	/**
 	 * @param review
 	 * Fï¿½gt ein neues Review zur Review-Liste hinzu,
 	 * ï¿½berarbeitet das Rating und erhï¿½ht die Reviewanzahl.
+	 * Außerdem wird das Overall Rating angelegt oder überarbeitet.
 	 */
 	public void addReview(Review review) {
 		this.reviews.add(review);
 		this.userRating = ( this.userRating * this.userRatingAnz + review.getRating() ) / ( this.userRatingAnz + 1);
 		this.userRatingAnz++;
+		
+		if(this.imdbRating != null) {
+			this.overallRating = (this.imdbRating / 2) * 0.4 + this.userRating * 0.6;
+		} else {
+			this.overallRating = this.userRating;
+		}
 	}
 	
 }
