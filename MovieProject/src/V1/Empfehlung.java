@@ -179,7 +179,11 @@ public class Empfehlung {
 	 * @param in
 	 * @param db
 	 * @param limit
-	 * @return
+	 * @return movies / moviesFinal
+	 * Die Methode getEmpfehlungByDirector sucht nach den gegebenen Regisseuren
+	 * und fügt alle Filme, die von diesen directed wurden einer Liste hinzu,
+	 * die nach dem Overall Rating sortiert wird und anschließend zurück 
+	 * gegeben wird.
 	 */
 	public static ArrayList<Movie> getEmpfehlungByDirector (String in, Data db, int limit) {
 		
