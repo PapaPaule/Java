@@ -265,5 +265,109 @@ public class Empfehlung {
 		}
 		
 	}
+	
+	public static ArrayList<Movie> getEmpfehlungByFilm (String in, Data db, int limit) {
+		
+		//Eingabe in verschiedene Filme splitten, falls mehrere eingegeben wurden
+		String[] films = in.split(",");
+		ArrayList<Movie> moviesContains = new ArrayList<>();
+		ArrayList<Movie> movies = new ArrayList<>();
+		ArrayList<Movie> moviesFinal = new ArrayList<>();
+		
+		for(int i = 0; i < films.length; i++) {
+			
+			for (Movie movie : db.getMovies().values()) {
+				
+				if (movie.getTitle().toLowerCase().contains(films[i].toLowerCase())) {
+					
+					moviesContains.add(movie);
+					
+				}
+				
+			}
+			
+		}
+			
+		for (Movie movie : moviesContains) {
+				
+			for (Review review : movie.getReviews()) {
+					
+				for (Review reviewOfUser: review.getUser().getReviews()) {
+						
+					movies.add(reviewOfUser.getMovie());
+						
+				}
+					
+			}
+				
+		}
+			
+		Collections.sort(moviesContains, new Comparator<Movie>() {
+			
+			@Override
+			public int compare(Movie o1, Movie o2) {
+				
+				if (o1.getOverallRating() > o2.getOverallRating()) {
+				
+					return 1;
+				
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+				
+					return -1;
+				
+				} else {
+			
+					return 0;
+				
+				}
+				
+			}
+			
+		});
+		
+		Collections.sort(movies, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie o1, Movie o2) {
+				
+				if (o1.getOverallRating() > o2.getOverallRating()) {
+				
+					return 1;
+				
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+				
+					return -1;
+				
+				} else {
+			
+					return 0;
+				
+				}
+				
+			}
+			
+		});
+		
+		moviesFinal.addAll(moviesContains);
+		moviesFinal.addAll(movies);
+		
+		if (moviesFinal.size() > limit) {
+			
+			ArrayList<Movie> moviesFinal1 = new ArrayList<>();
+			
+			for (int i = 0; i < limit; i++) {
+				
+				moviesFinal1.add(moviesFinal.get(i));
+				
+			}
+			
+			return moviesFinal1;
+			
+		} else {
+			
+			return moviesFinal;
+			
+		}
+		
+	}
 
 }

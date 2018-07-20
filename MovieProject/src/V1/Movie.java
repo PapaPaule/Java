@@ -40,8 +40,19 @@ public class Movie {
 	 * Null initialisiert.
 	 */
 	public Movie(int id, String title, String plot, String genre) {
+		
+		String[] titleSplit = title.split(",");
+		if (titleSplit.length == 2) {
+			
+			this.title = (titleSplit[1] + " " + titleSplit[0]).trim();
+			
+		} else {
+			
+			this.title = title;
+			
+		}
+		
 		this.id = id;
-		this.title = title;
 		this.plot = plot;
 		this.genre = genre;
 		this.actors = new ArrayList<Actor>();
@@ -50,6 +61,7 @@ public class Movie {
 		this.userRating = 0.0;
 		this.userRatingAnz = 0;
 		this.overallRating = 0.0;
+		
 	}
 	
 	/**
