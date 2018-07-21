@@ -15,8 +15,6 @@ public class Main {
 		String dbName = "./src//movieproject.db";
 		Data db = new Data();
 		db = Funktionen.ladeDB(dbName, db);
-		Funktionen.printDb(db);
-		Empfehlung.getEmpfehlungByActor("blabla", db, 4);
 		
 	}
 

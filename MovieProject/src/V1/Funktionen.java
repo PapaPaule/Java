@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Funktionen {
 
@@ -210,6 +211,66 @@ public class Funktionen {
 		}
 		
 		return split1;
+		
+	}
+	
+	public static ArrayList<Movie> readArgs(String[] args, Data db) {
+		
+		int limit = 200;
+		ArrayList<ArrayList<Movie>> listen = new ArrayList<>();
+		ArrayList<Movie> empfehlungen = new ArrayList<>();
+		
+		for (String string : args) {
+			
+			if(string.toLowerCase().contains("--limit=")) {
+				
+				String[] split = string.split("=");
+				limit = Integer.parseInt(split[1]);
+				
+			}
+			
+		}
+		
+		for (String string : args) {
+			
+			if (string.toLowerCase().contains("--genre=")) {
+				
+				String[] split = string.split("=");
+				listen.add(Empfehlung.getEmpfehlungByGenre(split[1], db, limit));
+				
+			}
+			
+			if (string.toLowerCase().contains("--actor=")) {
+				
+				String[] split = string.split("=");
+				listen.add(Empfehlung.getEmpfehlungByActor(split[1], db, limit));
+				
+			}
+			
+			if (string.toLowerCase().contains("--director=")) {
+				
+				String[] split = string.split("=");
+				listen.add(Empfehlung.getEmpfehlungByDirector(split[1], db, limit));
+				
+			}
+			
+			if (string.toLowerCase().contains("--film=")) {
+				
+				String[] split = string.split("=");
+				listen.add(Empfehlung.getEmpfehlungByFilm(split[1], db, limit));
+				
+			}
+			
+		}
+		
+		//Filme die in allen Listen sind zu empfehlungen hinzufügen
+		for (ArrayList<Movie> liste : listen) {
+			
+			
+			
+		}
+		
+		//danach sortieren nach bewertung (evtl. mit namen nach vorne)
 		
 	}
 	
