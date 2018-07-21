@@ -17,9 +17,9 @@ public class Movie {
 	protected String plot;
 	protected String genre;
 	protected String release;
-	protected List<Director> directors;
-	protected List<Actor> actors;
-	protected List<Review> reviews;
+	protected ArrayList<Director> directors;
+	protected ArrayList<Actor> actors;
+	protected ArrayList<Review> reviews;
 	protected int userRatingAnz;
 	protected Double userRating;
 	protected int imdbAnz;
@@ -108,7 +108,7 @@ public class Movie {
 	 * @return director
 	 * Gibt den Director des Films zurï¿½ck.
 	 */
-	public List<Director> getDirector() {
+	public ArrayList<Director> getDirectors() {
 		return this.directors;
 	}
 	
@@ -132,7 +132,7 @@ public class Movie {
 	 * @return actors
 	 * Gibt die Liste an Schauspielern des Films zurï¿½ck.
 	 */
-	public List<Actor> getActors() {
+	public ArrayList<Actor> getActors() {
 		return this.actors;
 	}
 	
@@ -140,7 +140,7 @@ public class Movie {
 	 * @return reviews
 	 * Gibt eine liste an Reviews des Films zurï¿½ck.
 	 */
-	public List<Review> getReviews() {
+	public ArrayList<Review> getReviews() {
 		return this.reviews;
 	}
 	
@@ -162,7 +162,7 @@ public class Movie {
 	
 	/**
 	 * @return overallRating
-	 * Gibt die Bewertung des Films (60% User Rating - 40% IMDB Rating) zurück.
+	 * Gibt die Bewertung des Films (60% User Rating - 40% IMDB Rating) zurï¿½ck.
 	 */
 	public Double getOverallRating() {
 		return this.overallRating;
@@ -213,7 +213,7 @@ public class Movie {
 	 * @param review
 	 * Fï¿½gt ein neues Review zur Review-Liste hinzu,
 	 * ï¿½berarbeitet das Rating und erhï¿½ht die Reviewanzahl.
-	 * Außerdem wird das Overall Rating angelegt oder überarbeitet.
+	 * Auï¿½erdem wird das Overall Rating angelegt oder ï¿½berarbeitet.
 	 */
 	public void addReview(Review review) {
 		this.reviews.add(review);

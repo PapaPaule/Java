@@ -12,7 +12,7 @@ public class Actor {
 
 	protected int id;
 	protected String name;
-	protected List<Movie> actedMovies;
+	protected ArrayList<Movie> actedMovies;
 	
 	/**
 	 * @param id
@@ -20,7 +20,7 @@ public class Actor {
 	 * Legt einen neuen Actor mit einer ID und einem
 	 * Namen an. Es wird eine neue leere Liste actedMovies
 	 * angelegt, in der Filme vom Typ Movie gespeichert 
-	 * werden können.
+	 * werden kï¿½nnen.
 	 */
 	public Actor(int id, String name) {
 		this.id = id;
@@ -30,7 +30,7 @@ public class Actor {
 	
 	/**
 	 * @return id
-	 * Gibt die ID zurück.
+	 * Gibt die ID zurï¿½ck.
 	 */
 	public int getId() {
 		return this.id;
@@ -38,7 +38,7 @@ public class Actor {
 	
 	/**
 	 * @return name
-	 * Gibt den Namen zurück.
+	 * Gibt den Namen zurï¿½ck.
 	 */
 	public String getName() {
 		return this.name;
@@ -46,16 +46,16 @@ public class Actor {
 	
 	/**
 	 * @return actedMovies
-	 * Gibt die Liste an Movies zurück, in denen
+	 * Gibt die Liste an Movies zurï¿½ck, in denen
 	 * der Actor mitgespielt hat.
 	 */
-	public List<Movie> getActedMovies() {
+	public ArrayList<Movie> getActedMovies() {
 		return this.actedMovies;
 	}
 	
 	/**
 	 * @param movie
-	 * Fügt der Liste actedMovies einen neuen Film
+	 * Fï¿½gt der Liste actedMovies einen neuen Film
 	 * vom Typ Movie hinzu.
 	 */
 	public void addActedMovie(Movie movie) {

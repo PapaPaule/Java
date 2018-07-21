@@ -1,10 +1,15 @@
 package V1;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Funktionen {
 
@@ -214,12 +219,26 @@ public class Funktionen {
 		
 	}
 	
+	/**
+	 * @param args
+	 * @param db
+	 * @return empfehlungenFinal
+	 * Die Methode readArgs filtert die Argumente des Aufruf der Main Methode heraus
+	 * und ruft die entsprechenden Empfehlungs-Funktionen auf und gibt anschließend eine
+	 * Liste mit den priorisierten Filmen zurück.
+	 */
 	public static ArrayList<Movie> readArgs(String[] args, Data db) {
 		
 		int limit = 200;
 		ArrayList<ArrayList<Movie>> listen = new ArrayList<>();
+		ArrayList<Movie> moviesContains = new ArrayList<>();
 		ArrayList<Movie> empfehlungen = new ArrayList<>();
+		ArrayList<Movie> prio1 = new ArrayList<>();
+		ArrayList<Movie> prio2 = new ArrayList<>();
+		ArrayList<Movie> prio3 = new ArrayList<>();
+		ArrayList<Movie> prio4 = new ArrayList<>();
 		
+		//Falls ein Limit angegeben wird, wird dieses in die Variable limit geschrieben
 		for (String string : args) {
 			
 			if(string.toLowerCase().contains("--limit=")) {
@@ -231,6 +250,8 @@ public class Funktionen {
 			
 		}
 		
+		//Die verschiedenen Argumente werden untersucht und die jeweilige Empfehlungs-Funktion wird aufgerufen
+		//Die einzelnen Ergebnis-Listen werden in eine Liste mit Listen gepackt
 		for (String string : args) {
 			
 			if (string.toLowerCase().contains("--genre=")) {
@@ -259,18 +280,275 @@ public class Funktionen {
 				String[] split = string.split("=");
 				listen.add(Empfehlung.getEmpfehlungByFilm(split[1], db, limit));
 				
+				//Sollte das Argument --film= angegeben sein, werden Filme, deren Name das Argument beinhalten in eine gesonderte Liste moviesContains geschrieben
+				for (Movie movie : Empfehlung.getEmpfehlungByFilm(split[1], db, limit)) {
+					
+					if (movie.getTitle().toLowerCase().contains(split[1].toLowerCase())) {
+						
+						moviesContains.add(movie);
+						
+					}
+					
+				}
+				
 			}
 			
 		}
 		
-		//Filme die in allen Listen sind zu empfehlungen hinzufügen
-		for (ArrayList<Movie> liste : listen) {
+		for (Movie movie : listen.get(0)) {
 			
+			int i = 0;
 			
+			for (ArrayList<Movie> list : listen) {
+				
+				if (list.contains(movie)) {
+					
+					i++;
+					
+				}
+				
+			}
+				
+			//Die Filme werden priorisiert. Je mehr der angegebenen Kriterien sie erfüllen, desto höher die Priorität
+			if (i == 4) {
+				
+				prio1.add(movie);
+				
+			} else if (i == 3) {
+				
+				prio2.add(movie);
+				
+			} else if (i == 2) {
+				
+				prio3.add(movie);
+				
+			} else if (i == 1) {
+				
+				prio4.add(movie);
+				
+			}
 			
 		}
 		
-		//danach sortieren nach bewertung (evtl. mit namen nach vorne)
+		//Sortieren der Liste moviesContains nach der Overall Bewertung
+		Collections.sort(moviesContains, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie o1, Movie o2) {
+				
+				if (o1.getOverallRating() < o2.getOverallRating()) {
+						
+					return 1;
+						
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+						
+					return -1;
+						
+				} else {
+					
+					return 0;
+						
+				}
+						
+			}
+					
+		});
+		
+		//Sortieren der Liste prio1 nach der Overall Bewertung
+		Collections.sort(prio1, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie o1, Movie o2) {
+				
+				if (o1.getOverallRating() < o2.getOverallRating()) {
+				
+					return 1;
+				
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+				
+					return -1;
+				
+				} else {
+			
+					return 0;
+				
+				}
+				
+			}
+			
+		});
+		
+		//Sortieren der Liste prio2 nach dem Overall Rating
+		Collections.sort(prio2, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie o1, Movie o2) {
+				
+				if (o1.getOverallRating() < o2.getOverallRating()) {
+				
+					return 1;
+				
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+				
+					return -1;
+				
+				} else {
+			
+					return 0;
+				
+				}
+				
+			}
+			
+		});
+		
+		//Sortieren der Liste prio3 nach der Overall Bewertung
+		Collections.sort(prio3, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie o1, Movie o2) {
+						
+				if (o1.getOverallRating() < o2.getOverallRating()) {
+						
+					return 1;
+						
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+						
+					return -1;
+						
+				} else {
+					
+					return 0;
+						
+				}
+						
+			}
+					
+		});
+		
+		//Sortieren der Liste prio4 nach der Overall Bewertung
+		Collections.sort(prio4, new Comparator<Movie>() {
+			@Override
+			public int compare(Movie o1, Movie o2) {
+								
+				if (o1.getOverallRating() < o2.getOverallRating()) {
+								
+					return 1;
+								
+				} if (o1.getOverallRating() > o2.getOverallRating()) {
+								
+					return -1;
+								
+				} else {
+							
+					return 0;
+								
+				}
+								
+			}
+							
+		});
+		
+		//Zusammenfügen der Listen nach Priorität
+		//moviesContains als erstes, da diese die Filme beinhalten mit dem gesuchten Namen (nur falls "--film"-Argument angegeben). Danach nach Prio absteigend
+		empfehlungen.addAll(moviesContains);
+		empfehlungen.addAll(prio1);
+		empfehlungen.addAll(prio2);
+		empfehlungen.addAll(prio3);
+		empfehlungen.addAll(prio4);
+		
+		//Lösche die letzten Argumente, falls die Liste länger als das gegebene Limit ist
+		if(empfehlungen.size() > limit) {
+			
+			for (int i = empfehlungen.size() - 1; i >= limit; i--) {
+				
+				empfehlungen.remove(i);
+				
+			}
+			
+		}
+		
+		return empfehlungen;
+		
+	}
+	
+	/**
+	 * @param ergebnis
+	 * Die Methode schreibeInDatei bekommt eine Liste von Filmen als Argument und schreibt diese 
+	 * in die Datei 'ergebnis.txt'. Filme werden mit dem Titel und der Overall Bewertung angegeben.
+	 */
+	public static void schreibeInDatei(ArrayList<Movie> ergebnis) {
+
+		try {
+		
+			FileWriter fw = new FileWriter("ergebnis.txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+			DecimalFormat f = new DecimalFormat("#0.0");
+			String n = System.getProperty("line.separator");
+			
+			for (Movie movie : ergebnis) {
+				
+				bw.write(movie.getTitle() + ", Bewertung: " + f.format(movie.getOverallRating()) + n);
+				System.out.println(movie.getTitle() + ", Bewertung: " + f.format(movie.getOverallRating()));
+				
+			}
+	    
+			bw.close();
+			
+	    } catch (IOException e) {
+	    	
+	    	e.printStackTrace();
+	    	
+	    }
+		
+	}
+	
+	/**
+	 * @param db
+	 * Die Methode testModus wird aufgerufen, wenn der Testmodus aktiviert wurde.
+	 * Sie startet die 3 vorgegebenen Testaufrufe und schreibt die Ergebnisse 
+	 * geordnet in die Datei 'results.txt'
+	 */
+	public static void testModus(Data db) {
+		
+		try {
+			
+			FileWriter fw = new FileWriter("result.txt");
+			BufferedWriter bw = new BufferedWriter(fw);
+			DecimalFormat f = new DecimalFormat("#0.0");
+			String n = System.getProperty("line.separator");
+			
+			String[] test1 = {"--genre=Thriller", "--film=Matrix Revolutions", "--limit=10"};
+			String[] test2 = {"--film=Indiana Jones and the Temple of Doom", "--genre=Adventure", "--limit=15"};
+			String[] test3 = {"--actor=Jason Statham,Keanu Reeves", "--genre=Action", "--limit=50"};
+			
+			bw.write("Ergebnis 1. Abfrage:" + n + n);
+			
+			for (Movie movie : readArgs(test1, db)) {
+				
+				bw.write(movie.getTitle() + ", Bewertung: " + f.format(movie.getOverallRating()) + n);
+				
+			}
+			
+			bw.write(n + n + "Ergebnis 2. Abfrage:" + n + n);
+			
+			for (Movie movie : readArgs(test2, db)) {
+				
+				bw.write(movie.getTitle() + ", Bewertung: " + f.format(movie.getOverallRating()) + n);
+				
+			}
+			
+			bw.write(n + n + "Ergebnis 3. Abfrage:" + n + n);
+			
+			for (Movie movie : readArgs(test3, db)) {
+				
+				bw.write(movie.getTitle() + ", Bewertung: " + f.format(movie.getOverallRating()) + n);
+				
+			}
+			
+			bw.close();
+			
+		} catch (IOException e) {
+	    	
+	    	e.printStackTrace();
+	    	
+	    }
 		
 	}
 	

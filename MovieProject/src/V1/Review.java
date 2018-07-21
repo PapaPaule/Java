@@ -3,13 +3,13 @@ package V1;
 /**
  * @author MaderP
  * Die Klasse Review definiert ein verfasstes Review eines Users.
- * Ein Review enthält den Verfasser (User), ein Rating
- * und den zugehörigen Film vom Typ Movie.
+ * Ein Review enthï¿½lt den Verfasser (User), ein Rating
+ * und den zugehï¿½rigen Film vom Typ Movie.
  */
 class Review {
 
 	protected User user;
-	protected double rating;
+	protected Double rating;
 	protected Movie movie;
 	
 	/**
@@ -18,7 +18,7 @@ class Review {
 	 * @param movie
 	 * Legt ein Review an mit einem User, einem Rating und dem Movie.
 	 */
-	public Review(User user, double rating, Movie movie) {
+	public Review(User user, Double rating, Movie movie) {
 		this.user = user;
 		this.rating = rating;
 		this.movie = movie;
@@ -26,7 +26,7 @@ class Review {
 	
 	/**
 	 * @return User
-	 * Gibt den User zurück.
+	 * Gibt den User zurï¿½ck.
 	 */
 	public User getUser() {
 		return this.user;
@@ -34,42 +34,18 @@ class Review {
 	
 	/**
 	 * @return Rating
-	 * Gibt das Rating eines Reviews zurück.
+	 * Gibt das Rating eines Reviews zurï¿½ck.
 	 */
-	public double getRating() {
+	public Double getRating() {
 		return this.rating;
 	}
 	
 	/**
 	 * @return Movie
-	 * Gibt den Film des Reviews zurück.
+	 * Gibt den Film des Reviews zurï¿½ck.
 	 */
 	public Movie getMovie() {
 		return this.movie;
-	}
-
-	/**
-	 * @param user
-	 * Legt den User fest.
-	 */
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	/**
-	 * @param rating
-	 * Legt das Rating fest.
-	 */
-	public void setRating(double rating) {
-		this.rating = rating;
-	}
-
-	/**
-	 * @param movie
-	 * Legt den Movie fest.
-	 */
-	public void setMovie(Movie movie) {
-		this.movie = movie;
 	}
 	
 }

@@ -32,7 +32,7 @@ public class Empfehlung {
 			for (Movie movie : db.getMovies().values()) {
 				
 				//suche alle Filme des Genres mit einer Overall Bewertung von mehr als 2.5 und fï¿½ge sie der Liste movies hinzu
-				if (movie.getGenre().toLowerCase().equals(genres[i].toLowerCase()) && movie.getOverallRating() > 2.5) {
+				if (movie.getGenre().toLowerCase().contains(genres[i].toLowerCase())) {
 					
 					movies.add(movie);
 				
@@ -47,7 +47,7 @@ public class Empfehlung {
 			@Override
 			public int compare(Movie o1, Movie o2) {
 				
-				if (o1.getOverallRating() > o2.getOverallRating()) {
+				if (o1.getOverallRating() < o2.getOverallRating()) {
 					
 					return 1;
 					
@@ -63,24 +63,7 @@ public class Empfehlung {
 			}
 		});
 		
-		//Falls Liste lÃ¤nger als Limit, fÃ¼ge der neuen Liste die ersten [Limit] EintrÃ¤ge hinzu, falls nicht, gebe die Ursprungsliste zurÃ¼ck
-		if (limit < movies.size()) {
-			
-			ArrayList<Movie> moviesFinal = new ArrayList<>();
-			
-			for (int i = 0; i < limit; i++) {
-			
-				moviesFinal.add(movies.get(i));
-			
-			}
-			
-			return moviesFinal;
-			
-		} else {
-		
-			return movies;
-		
-		}
+		return movies;
 		
 	}
 	
@@ -136,7 +119,7 @@ public class Empfehlung {
 			@Override
 			public int compare(Movie o1, Movie o2) {
 				
-				if (o1.getOverallRating() > o2.getOverallRating()) {
+				if (o1.getOverallRating() < o2.getOverallRating()) {
 			
 					return 1;
 
@@ -154,24 +137,7 @@ public class Empfehlung {
 			
 		});
 		
-		//Die Liste wird an das gegebene Limit angepasst
-		if(limit < movies.size()) {
-			
-			ArrayList<Movie> moviesFinal = new ArrayList<>();
-			
-			for (int i = 0; i < limit; i++) {
-				
-				moviesFinal.add(movies.get(i));
-				
-			}
-			
-			return moviesFinal;
-			
-		} else {
-			
-			return movies;
-			
-		}
+		return movies;
 		
 	}
 	
@@ -181,8 +147,8 @@ public class Empfehlung {
 	 * @param limit
 	 * @return movies / moviesFinal
 	 * Die Methode getEmpfehlungByDirector sucht nach den gegebenen Regisseuren
-	 * und fügt alle Filme, die von diesen directed wurden einer Liste hinzu,
-	 * die nach dem Overall Rating sortiert wird und anschließend zurück 
+	 * und fï¿½gt alle Filme, die von diesen directed wurden einer Liste hinzu,
+	 * die nach dem Overall Rating sortiert wird und anschlieï¿½end zurï¿½ck 
 	 * gegeben wird.
 	 */
 	public static ArrayList<Movie> getEmpfehlungByDirector (String in, Data db, int limit) {
@@ -227,7 +193,7 @@ public class Empfehlung {
 			@Override
 			public int compare(Movie o1, Movie o2) {
 				
-				if (o1.getOverallRating() > o2.getOverallRating()) {
+				if (o1.getOverallRating() < o2.getOverallRating()) {
 				
 					return 1;
 				
@@ -245,24 +211,7 @@ public class Empfehlung {
 			
 		});
 		
-		//Liste an das Limit anpassen
-		if (limit < movies.size()) {
-			
-			ArrayList<Movie> moviesFinal = new ArrayList<>();
-			
-			for (int i = 0; i < limit; i++) {
-				
-				moviesFinal.add(movies.get(i));
-				
-			}
-			
-			return moviesFinal;
-			
-		} else {
-			
-			return movies;
-			
-		}
+		return movies;
 		
 	}
 	
@@ -293,8 +242,12 @@ public class Empfehlung {
 			for (Review review : movie.getReviews()) {
 					
 				for (Review reviewOfUser: review.getUser().getReviews()) {
+					
+					if (!movies.contains(reviewOfUser.getMovie()) && !moviesContains.contains(reviewOfUser.getMovie())) {
 						
-					movies.add(reviewOfUser.getMovie());
+						movies.add(reviewOfUser.getMovie());
+						
+					}
 						
 				}
 					
@@ -307,7 +260,7 @@ public class Empfehlung {
 			@Override
 			public int compare(Movie o1, Movie o2) {
 				
-				if (o1.getOverallRating() > o2.getOverallRating()) {
+				if (o1.getOverallRating() < o2.getOverallRating()) {
 				
 					return 1;
 				
@@ -329,7 +282,7 @@ public class Empfehlung {
 			@Override
 			public int compare(Movie o1, Movie o2) {
 				
-				if (o1.getOverallRating() > o2.getOverallRating()) {
+				if (o1.getOverallRating() < o2.getOverallRating()) {
 				
 					return 1;
 				
@@ -350,23 +303,7 @@ public class Empfehlung {
 		moviesFinal.addAll(moviesContains);
 		moviesFinal.addAll(movies);
 		
-		if (moviesFinal.size() > limit) {
-			
-			ArrayList<Movie> moviesFinal1 = new ArrayList<>();
-			
-			for (int i = 0; i < limit; i++) {
-				
-				moviesFinal1.add(moviesFinal.get(i));
-				
-			}
-			
-			return moviesFinal1;
-			
-		} else {
-			
-			return moviesFinal;
-			
-		}
+		return moviesFinal;
 		
 	}
 

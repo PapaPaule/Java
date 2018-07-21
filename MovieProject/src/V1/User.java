@@ -10,30 +10,22 @@ import java.util.*;
 public class User {
 
 	protected String name;
-	protected List<Review> reviews;
+	protected ArrayList<Review> reviews;
 
 	/**
 	 * @param name
 	 * Der User wird mit einem Namen angelegt und es wird eine neue Liste erstellt,
-	 * die mit Reviews gefüllt werden kann.
+	 * die mit Reviews gefï¿½llt werden kann.
 	 */
 	public User(String name) {
 		this.name = name;
 		this.reviews = new ArrayList<Review>();
 	}
-
-	/**
-	 * @param name
-	 * Legt den Namen des Users fest.
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	/**
 	 * @param review
 	 * Der Liste an verfassten Reviews des Users
-	 * wird ein Review hinzugefügt.
+	 * wird ein Review hinzugefï¿½gt.
 	 */
 	public void addReview(Review review) {
 		this.reviews.add(review);
@@ -41,7 +33,7 @@ public class User {
 
 	/**
 	 * @return name
-	 * Name des Users wird zurückgegeben.
+	 * Name des Users wird zurï¿½ckgegeben.
 	 */
 	public String getName() {
 		return this.name;
@@ -49,9 +41,9 @@ public class User {
 
 	/**
 	 * @return reviews
-	 * Die Liste an verfassten Reviews des Users wird zurückgegeben.
+	 * Die Liste an verfassten Reviews des Users wird zurï¿½ckgegeben.
 	 */
-	public List<Review> getReviews() {
+	public ArrayList<Review> getReviews() {
 		return this.reviews;
 	}
 

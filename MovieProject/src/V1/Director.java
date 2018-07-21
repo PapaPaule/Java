@@ -12,14 +12,14 @@ public class Director {
 
 	protected int id;
 	protected String name;
-	protected List<Movie> directedMovies;
+	protected ArrayList<Movie> directedMovies;
 	
 	/**
 	 * @param id
 	 * @param name
 	 * Legt einen neuen Director an mit der ID und dem Namen.
 	 * Es wird eine neue leere Liste directedMovies angelegt,
-	 * in der Filme vom Typen Movie gespeichert werden können.
+	 * in der Filme vom Typen Movie gespeichert werden kï¿½nnen.
 	 */
 	public Director(int id, String name) {
 		this.id = id;
@@ -29,7 +29,7 @@ public class Director {
 	
 	/**
 	 * @return id
-	 * Gibt die ID des Directors zurück.
+	 * Gibt die ID des Directors zurï¿½ck.
 	 */
 	public int getId() {
 		return this.id;
@@ -37,7 +37,7 @@ public class Director {
 	
 	/**
 	 * @return name
-	 * Gibt den Namen des Directors zurück.
+	 * Gibt den Namen des Directors zurï¿½ck.
 	 */
 	public String getName() {
 		return this.name;
@@ -45,16 +45,16 @@ public class Director {
 	
 	/**
 	 * @return directedMovies
-	 * Gibt die Liste an Filmen zurück, die vom Director
+	 * Gibt die Liste an Filmen zurï¿½ck, die vom Director
 	 * directed wurden.
 	 */
-	public List<Movie> getDirectedMovies() {
+	public ArrayList<Movie> getDirectedMovies() {
 		return this.directedMovies;
 	}
 	
 	/**
 	 * @param movie
-	 * Fügt der Liste directedMovies einen neuen Film
+	 * Fï¿½gt der Liste directedMovies einen neuen Film
 	 * vom Typ Movie hinzu.
 	 */
 	public void addDirectedMovie(Movie movie) {
