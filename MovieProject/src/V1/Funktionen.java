@@ -11,6 +11,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * @author maede
+ * Die Klasse Funktionen beinhaltet alle wichtigen Funktionen, die für das Projekt wichtig sind.
+ * Es enthält das Programm zum Einlesen der Datei in die Datenbank, die Funktion zum Löschen
+ * von Leerzeichen am Anfang oder Ende eines Strings, die Methode zum Einlesen und Auswerten
+ * der Argumente beim Programmaufruf, die Funktion zum Schreiben des Ergebnisses in die Datei
+ * und die Testmodus-Funktion.
+ */
 public class Funktionen {
 
 	/**
@@ -176,22 +184,6 @@ public class Funktionen {
 		}
 		
 		return db;
-		
-	}
-	
-	/**
-	 * @param db
-	 * Druckt einen gewissen Teil der Datenbank db.
-	 */
-	public static void printDb(Data db) {
-		
-		for(Movie movie: db.movies.values()) {
-			System.out.print(movie.getTitle() + ": " + movie.getPlot() + ", Genre: " + movie.getGenre() + ", by ");
-			for(Director director: movie.directors) {
-				System.out.print(director.getName() + ", ");
-			}
-			System.out.print(movie.getOverallRating() + "\n");
-		}
 		
 	}
 	
